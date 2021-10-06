@@ -4,7 +4,7 @@ package ru.netotlogy;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//*@AllArgsConstructor*/
+/*@AllArgsConstructor*/
 @Data
 @NoArgsConstructor
 public class Radio {
@@ -12,17 +12,17 @@ public class Radio {
     private int numberStation = 0;
     private int minNumberStation = 0;
     private int totalNumberOfStations = 10;
+    private int maxNumberStation = totalNumberOfStations - 1;
     private int currentVolume = 0;
     private int minCurrentVolume = 0;
     private int maxCurrentVolume = 100;
 
-    public Radio(int totalNumberOfStations) {
-
+    public Radio(int totalNumberOfStations) { // и инт на максимум был в круглых скобках, я убрал
         this.totalNumberOfStations = totalNumberOfStations;
+        this.maxNumberStation = totalNumberOfStations - 1; // вот это строчка сгенерировалась в конструкторе как обычный инт без логики
     }
 
     public void setNumberStation(int newNumberStation) { // метод по созданию радио с определённым количеством станций
-        int maxNumberStation = totalNumberOfStations - 1;
         if (newNumberStation < minNumberStation) {
             return;
         }
@@ -32,7 +32,6 @@ public class Radio {
             numberStation = newNumberStation;
         }
     }
-
 
     public void setСurrentVolume(int newСurrentVolume) { // тут задаем значение станции
         if (newСurrentVolume < minCurrentVolume) {
@@ -46,12 +45,8 @@ public class Radio {
 
     }
 
-    /*public void changeNumberStation() { // метод для ручного выставления станции
-        return; // по условию возможен ввод числе от 0 до 9 - условия раннего выхода не нужны.
-    }*/
-
     public void increaseNumberStation() { // тут переключаем на след станцию
-        int maxNumberStation = totalNumberOfStations - 1;
+
         if (numberStation < maxNumberStation) {
             numberStation = numberStation + 1;
         } else {
@@ -60,7 +55,6 @@ public class Radio {
     }
 
     public void decreaseNumberStation() { // тут переключаем на предыдущую станцию
-        int maxNumberStation = totalNumberOfStations - 1;
         if (numberStation > minNumberStation) {
             numberStation = numberStation - 1;
         } else {
@@ -73,7 +67,6 @@ public class Radio {
             currentVolume = currentVolume + 1;
         }
     }
-
 
     public void decreaseCurrentVolume() { // тут уменьшаем громкость
         if (currentVolume > minCurrentVolume) {
